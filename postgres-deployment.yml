@@ -31,4 +31,12 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "300m"
+        volumeMounts:
+          - name: postgres-data
+            mountPath: /var/lib/postgresql/data # что будем монтировать
+            subPath: postgres # директория внутри полученного Volume, где будем смонтированы данные
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-pvc # создали отдельно см postres-pvc.yml
 

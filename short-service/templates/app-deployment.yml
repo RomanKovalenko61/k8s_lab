@@ -1,28 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: short-app-deployment
+  name: {{ .Values.app.name }}-deployment
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      components: frontend
+      components: {{ .Values.app.components }}
   template:
     metadata:
-      name: short-app
       labels:
-        components: frontend
+        components: {{ .Values.app.components }}
     spec:
       containers:
-        - name: short-app
-          image: antonlarichev/short-app:v1.4
-          #imagePullPolicy: Always
+        - name: {{ .Values.app.name }}
+          image: "{{ .Values.app.image }}:{{ .Values.app.version }}"
           ports:
-            - containerPort: 80
+            - containerPort: {{ .Values.app.port }}
           resources:
-            requests:
-              memory: "64Mi"
-              cpu: "50m"
             limits:
-              memory: "128Mi"
-              cpu: "100m"    
+              memory: {{ .Values.app.limits.memory }}
+              cpu: {{ .Values.app.limits.cpu }}   

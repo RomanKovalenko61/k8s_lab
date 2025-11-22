@@ -14,4 +14,8 @@ data:
   cpu: {{ .cpu }}
   version: {{ $.Values.app.version }}
   {{- end }}
+  users:
+    {{- range .Values.users }}
+    {{ .name }}: {{ .role }}
+    {{- end }}
 

@@ -9,15 +9,31 @@ app:
     memory: "128Mi"
     cpu: "100m"
 
-env: test
-value:
-  requirements:
-    limits:
-      memory: "128Mi"
-      cpu: "100m"
-users:
-  - name: Anton
-    role: admin
-  - name: Vasya
-    role: manager
+api:
+  name: short-api
+  image: antonlarichev/short-api
+  version: v1.0
+  components: backend
+  port: 3000
+  replicas: 1
+  limits:
+    memory: "512Mi"
+    cpu: "200m"
+  env: DATABASE_URL
+
+postgres:
+  name: postgres
+  image: antonlarichev/short-api
+  version: v1.0
+  components: backend
+  port: 5432
+  limits:
+    memory: "512Mi"
+    cpu: "200m"
+
+database:
+  user: demo
+  password: demo
+  db: demo
+  host: postgres-clusterip
       
